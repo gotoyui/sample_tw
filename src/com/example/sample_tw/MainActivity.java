@@ -69,69 +69,51 @@ public class MainActivity extends Activity {
 		// adapterに接続！
 		listview.setAdapter(adapter);
 
-		
-		
-		
-		
 		// コレはインスタンス。クラスはインスタンスにしないと使えない！！！ローカル変数を宣言！！
-	//	GetHomeTimeline gethometimeline = new GetHomeTimeline(items, this,
-	//			adapter);
-	//	gethometimeline.start();
-		
-		
-		
-		
-		// future task を利用してスレッドをつくる
-		ExecutorService exec = Executors.newSingleThreadExecutor();
-		exec.submit(new Callable<Status>() {
+		GetHomeTimeline gethometimeline = new GetHomeTimeline(items, this,
+				adapter);
+		gethometimeline.start();
 
-			@Override
-			public Status call() throws Exception {
-
-				// gets Twitter instance with default credentials
-				Twitter twitter = new TwitterFactory().getInstance();
-				User user = twitter.verifyCredentials();
-				// saishinはitemsの中のいちばん新しいやつ
-				List<Status> statuses;
-				if(items.size() > 0) {
-					TwitterStatus saishin = (TwitterStatus)(items.get(0));
-					// 最新のIDから20こもらってくる！！
-					Paging paging = new Paging(saishin.getId());
-					statuses = twitter.getHomeTimeline(paging);
-				} else {
-					statuses = twitter.getHomeTimeline();
-				}
-				
-				
-				for (int l = statuses.size()-1; 0<=l; l--) {
-					TwitterStatus tweet = new TwitterStatus();
-					Status status = statuses.get(l);
-					tweet.setScreenName(status .getUser().getScreenName());
-					tweet.setText(status.getText());
-					items.add(0, tweet);
-					tweet.setId(status.getId());
-				}
-
-				// スレッド(Actionクラス)で処理
-				// UlThreadはMainActivityをしてる人のこと。actionメソッドを動かしてもらう！
-				activity.runOnUiThread(new Action(adapter));
-				
-				return status;
-
-			}
-
-		});
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		// // future task を利用してスレッドをつくる
+		// ExecutorService exec = Executors.newSingleThreadExecutor();
+		// exec.submit(new Callable<Status>() {
+		//
+		// @Override
+		// public Status call() throws Exception {
+		//
+		// // gets Twitter instance with default credentials
+		// Twitter twitter = new TwitterFactory().getInstance();
+		// User user = twitter.verifyCredentials();
+		// // saishinはitemsの中のいちばん新しいやつ
+		// List<Status> statuses;
+		// if(items.size() > 0) {
+		// TwitterStatus saishin = (TwitterStatus)(items.get(0));
+		// // 最新のIDから20こもらってくる！！
+		// Paging paging = new Paging(saishin.getId());
+		// statuses = twitter.getHomeTimeline(paging);
+		// } else {
+		// statuses = twitter.getHomeTimeline();
+		// }
+		//
+		//
+		// for (int l = statuses.size()-1; 0<=l; l--) {
+		// TwitterStatus tweet = new TwitterStatus();
+		// Status status = statuses.get(l);
+		// tweet.setScreenName(status .getUser().getScreenName());
+		// tweet.setText(status.getText());
+		// items.add(0, tweet);
+		// tweet.setId(status.getId());
+		// }
+		//
+		// // スレッド(Actionクラス)で処理
+		// // UlThreadはMainActivityをしてる人のこと。actionメソッドを動かしてもらう！
+		// activity.runOnUiThread(new Action(adapter));
+		//
+		// return status;
+		//
+		// }
+		//
+		// });
 
 		// MainActivityをactivityという名前のメンバ変数にしました
 		activity = this;
