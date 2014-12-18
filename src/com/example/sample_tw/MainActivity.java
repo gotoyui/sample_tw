@@ -172,35 +172,10 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		// getMenuInflater().inflate(R.menu.main, menu);
-
-		// int MENU_SELECT_ADD;
-		// int MENU_SELECT_DELETE;
-		// int MENU_SELECT_ELSE;
 
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.list, menu);
 		return true;
-
-		// MenuItem target = menu.add(0, MENU_SELECT_ADD, 0,
-		// getString(R.string.action_add));
-		// target.setIcon(android.R.drawable.ic_menu_add);
-		// target.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		//
-		// target = menu.add(0, MENU_SELECT_DELETE, 1,
-		// getString(R.string.action_delte));
-		// target.setIcon(android.R.drawable.ic_menu_delete);
-		// // SHOW_AS_ACTION_ALWAYS:常に表示
-		// target.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		//
-		// target = menu.add(0, MENU_SELECT_ELSE, 2,
-		// getString(R.string.action_else));
-		// target.setIcon(android.R.drawable.ic_menu_info_details);
-		// // SHOW_AS_ACTION_ALWAYS:常に表示
-		// target.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		//
-		// return super.onCreateOptionsMenu(menu);
 	}
 
 	// ActionBarのイベントのハンドリング！
@@ -209,6 +184,7 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.item1:
 			Log.d("", "menu1 tap.");
+			// ここにコールバック処理などをかく！
 
 		case R.id.item2:
 			Log.d("", "menu2 tap");
