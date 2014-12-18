@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- アイコンを設定せずにテキストを指定する場合、すべて大文字で表示される！ -->
+    <item
+        android:id="@+id/item1"
+        android:showAsAction="ifRoom"
+        android:title="Log in"/>
+    <item
+        android:id="@+id/item2"
+        android:showAsAction="always"
+        android:title="Exit"/>
+
+</menu>

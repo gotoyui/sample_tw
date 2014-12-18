@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 // ArrayListとListViewをくっつけるためにある
-
 // ArrayAdapterは渡されたデータ(items)をTextViewのtextにセットして、Activityに返し、Activityが渡されたビューを表示する、という処理を内部でしています。
 //その処理を行うのはArrayAdapter#getViewメソッドです。なので、この処理をオーバーライドしてあげれば、自分の好きなビューを表示できるようになります。
 //というわけで、ArrayAdapterを継承して、Twitter風にデータとビューをマッピングさせるTwitterAdapterクラスを作成します。
@@ -36,7 +35,7 @@ public class TwitterAdapter extends ArrayAdapter {
 			// 受け取ったビューがnullなら新しくビューを生成
 			view = inflater.inflate(R.layout.twitter_row, null);
 			// 背景画像をセットする
-			view.setBackgroundResource(R.drawable.back);
+			view.setBackgroundResource(R.drawable.back2);
 		}
 		// 表示すべきデータの取得
 		TwitterStatus item = (TwitterStatus) items.get(position);
@@ -53,6 +52,12 @@ public class TwitterAdapter extends ArrayAdapter {
 			// テキストをビューにセット
 			if (text != null) {
 				text.setText(item.getText());
+			}
+			
+			// URLを画像にセット
+			URLImageView icon = (URLImageView) view.findViewById(R.id.icon);
+			if (icon != null) {
+				icon.setUrl(item.getUrl());
 			}
 		}
 		return view;

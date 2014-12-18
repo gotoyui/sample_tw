@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- くるくる更新に利用する色たち -->
     <color name="swipe_color_1">#101010</color>
     <color name="swipe_color_2">#505050</color>
     <color name="swipe_color_3">#909090</color>
     <color name="swipe_color_4">#c0c0c0</color>
+
+    <!-- ActionBarに利用する色たち -->
+    <color name="theme_color_1">#909090</color>
 
 </resources>

@@ -4,9 +4,8 @@ package com.example.sample_tw;
 public class TwitterStatus {
 	private String screenName;
 	private String text;
-	private int time;
 	private long id;
-
+	private String url;
 
 	public long getId() {
 		return id;
@@ -34,15 +33,12 @@ public class TwitterStatus {
 		this.text = text;
 	}
 
-	// timeをgetしてsetする
-	public int getTime() {
-		return time;
+	// urlをgetしてsetする
+	public String getUrl() {
+		return url;
 	}
 
-	
-
-	// public void setTime(int Time) {
-	// this.time = time;
-	// }
-
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

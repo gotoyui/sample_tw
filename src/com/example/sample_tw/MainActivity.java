@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,8 +18,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,7 +38,7 @@ public class MainActivity extends Activity {
 
 	// メンバ変数を宣言！！
 	private SwipeRefreshLayout mSwipeRefreshLayout;
-	private ArrayList items;
+	private ArrayList items; // ListViewの1行のデータのこと
 	// ListViewとArrayListをくっつけるために、TwitterAdapter型のadapterをつくる
 	TwitterAdapter adapter;
 	MainActivity activity;
@@ -43,6 +46,9 @@ public class MainActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// ActionBarにmenuを表示するときに忘れずつける！
+		setHasOptionsMenu(true);
 
 		// fragment_mainをよみこむ
 		setContentView(R.layout.fragment_main);
@@ -69,51 +75,8 @@ public class MainActivity extends Activity {
 		// adapterに接続！
 		listview.setAdapter(adapter);
 
-		// コレはインスタンス。クラスはインスタンスにしないと使えない！！！ローカル変数を宣言！！
-		GetHomeTimeline gethometimeline = new GetHomeTimeline(items, this,
-				adapter);
-		gethometimeline.start();
-
-		// // future task を利用してスレッドをつくる
-		// ExecutorService exec = Executors.newSingleThreadExecutor();
-		// exec.submit(new Callable<Status>() {
-		//
-		// @Override
-		// public Status call() throws Exception {
-		//
-		// // gets Twitter instance with default credentials
-		// Twitter twitter = new TwitterFactory().getInstance();
-		// User user = twitter.verifyCredentials();
-		// // saishinはitemsの中のいちばん新しいやつ
-		// List<Status> statuses;
-		// if(items.size() > 0) {
-		// TwitterStatus saishin = (TwitterStatus)(items.get(0));
-		// // 最新のIDから20こもらってくる！！
-		// Paging paging = new Paging(saishin.getId());
-		// statuses = twitter.getHomeTimeline(paging);
-		// } else {
-		// statuses = twitter.getHomeTimeline();
-		// }
-		//
-		//
-		// for (int l = statuses.size()-1; 0<=l; l--) {
-		// TwitterStatus tweet = new TwitterStatus();
-		// Status status = statuses.get(l);
-		// tweet.setScreenName(status .getUser().getScreenName());
-		// tweet.setText(status.getText());
-		// items.add(0, tweet);
-		// tweet.setId(status.getId());
-		// }
-		//
-		// // スレッド(Actionクラス)で処理
-		// // UlThreadはMainActivityをしてる人のこと。actionメソッドを動かしてもらう！
-		// activity.runOnUiThread(new Action(adapter));
-		//
-		// return status;
-		//
-		// }
-		//
-		// });
+		// getHomeTimelineのメソッドを呼び出す
+		getHomeTimeline();
 
 		// MainActivityをactivityという名前のメンバ変数にしました
 		activity = this;
@@ -121,7 +84,6 @@ public class MainActivity extends Activity {
 		// fragment_mainのbuttonの遷移先を指定！！
 		Button btnMove = (Button) findViewById(R.id.tweet_before);
 		btnMove.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, NewTweet.class);
@@ -130,13 +92,67 @@ public class MainActivity extends Activity {
 		});
 	}
 
+	// みんなが使いたいからonCreateの外に書いたやつ
+	public void getHomeTimeline() {
+		// future task を利用してスレッドをつくる。タイムラインを取得する！！
+		ExecutorService exec = Executors.newSingleThreadExecutor();
+		List<Status> statuses = null; // 初期化
+		try {
+			statuses = exec.submit(new Callable<List<Status>>() { // statusesに代入する
+						@Override
+						public List<Status> call() throws Exception {
+							List<Status> results = null; // 初期化
+							try {
+								// gets Twitter instance with default
+								// credentials
+								Twitter twitter = new TwitterFactory()
+										.getInstance();
+								User user = twitter.verifyCredentials();
+								// saishinはitemsの中のいちばん新しいやつ！！
+								if (items.size() > 0) {
+									TwitterStatus saishin = (TwitterStatus) (items
+											.get(0));
+									// 最新のIDから20こもらってくる！！
+									Paging paging = new Paging(saishin.getId());
+									results = twitter.getHomeTimeline(paging);
+								} else {
+									results = twitter.getHomeTimeline();
+								}
+								// 例外処理
+							} catch (TwitterException te) {
+								te.printStackTrace();
+								System.out.println("読み込みに失敗しました〜！"
+										+ te.getMessage());
+								System.exit(-1);
+							}
+							return results;
+						}
+					}).get(); // をgetする（そして一番上に代入する）
+		} catch (InterruptedException e) { // 例外処理
+			e.printStackTrace();
+		} catch (ExecutionException e) { // 例外処理
+			e.printStackTrace();
+		}
+
+		for (int l = statuses.size() - 1; 0 <= l; l--) { // sizeはリストの数のこと。後ろから0になるまで1個ずつTwitterStatusにいれる。
+			TwitterStatus tweet = new TwitterStatus();
+			Status status = statuses.get(l);
+			tweet.setScreenName(status.getUser().getScreenName());
+			tweet.setText(status.getText());
+			tweet.setUrl(status.getUser().getProfileImageURL());
+			items.add(0, tweet); // itemsに追加する。0は一番新しいところ
+			tweet.setId(status.getId()); // ツイートのID
+		}
+		// notifyDataSetChangedは、ListViewの更新を促す
+		adapter.notifyDataSetChanged();
+	}
+
+	// くるくる更新のこまかい動きについてのやつ
 	private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
 		@Override
 		public void onRefresh() {
 			// ツイートを新しく取得。さっき上で使ったローカル変数を宣言！！
-			GetHomeTimeline gethometimeline = new GetHomeTimeline(items,
-					activity, adapter);
-			gethometimeline.start();
+			getHomeTimeline();
 
 			// 更新処理を実装
 			new Handler().postDelayed(new Runnable() {
@@ -149,4 +165,56 @@ public class MainActivity extends Activity {
 		}
 	};
 
+	// ActionBarについての設定！！
+	private void setHasOptionsMenu(boolean b) {
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		// getMenuInflater().inflate(R.menu.main, menu);
+
+		// int MENU_SELECT_ADD;
+		// int MENU_SELECT_DELETE;
+		// int MENU_SELECT_ELSE;
+
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.list, menu);
+		return true;
+
+		// MenuItem target = menu.add(0, MENU_SELECT_ADD, 0,
+		// getString(R.string.action_add));
+		// target.setIcon(android.R.drawable.ic_menu_add);
+		// target.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		//
+		// target = menu.add(0, MENU_SELECT_DELETE, 1,
+		// getString(R.string.action_delte));
+		// target.setIcon(android.R.drawable.ic_menu_delete);
+		// // SHOW_AS_ACTION_ALWAYS:常に表示
+		// target.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		//
+		// target = menu.add(0, MENU_SELECT_ELSE, 2,
+		// getString(R.string.action_else));
+		// target.setIcon(android.R.drawable.ic_menu_info_details);
+		// // SHOW_AS_ACTION_ALWAYS:常に表示
+		// target.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		//
+		// return super.onCreateOptionsMenu(menu);
+	}
+
+	// ActionBarのイベントのハンドリング！
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.item1:
+			Log.d("", "menu1 tap.");
+
+		case R.id.item2:
+			Log.d("", "menu2 tap");
+			finish();
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 }

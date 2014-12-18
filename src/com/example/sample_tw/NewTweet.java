@@ -31,7 +31,7 @@ public class NewTweet extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 
-				// future task を利用してスレッドをつくる
+				// future task を利用してスレッドをつくる。ツイートをする
 				ExecutorService exec = Executors.newSingleThreadExecutor();
 				exec.submit(new Callable<Status>() {
 
@@ -43,23 +43,17 @@ public class NewTweet extends FragmentActivity {
 						EditText NewTweetEdit = (EditText) findViewById(R.id.newtweet); // tweet内容をとってくる
 						NewTweetEdit.getText().toString(); // String型にする
 						String latestStatus = NewTweetEdit.getText().toString();
-
 						status = twitter.updateStatus(latestStatus); // statusに代入
-
 						System.out.println("ツイート「" + status.getText()
 								+ "」を投稿しました");
 						return status;
-
 					}
-
 				});
 
 				// もとのfragment_mainにもどる
 				Intent intent = new Intent(NewTweet.this, MainActivity.class);
 				startActivity(intent);
-
 			}
 		});
 	}
-
 }
