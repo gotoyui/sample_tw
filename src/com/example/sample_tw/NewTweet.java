@@ -8,10 +8,13 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,10 +27,15 @@ public class NewTweet extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.newtweet);
 
-		// newtweet.xmlのbuttonの遷移先を指定！！
+		// アクションバーに前画面に戻る機能をつける
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		// newtweet.xmlのbuttonの遷移先を指定！！ボタン押したとき起こること！
 		Button btnMove = (Button) findViewById(R.id.tweet_after);
 		btnMove.setOnClickListener(new OnClickListener() {
 
+			// クリックしたとき起こること！
 			@Override
 			public void onClick(View v) {
 
@@ -55,5 +63,16 @@ public class NewTweet extends FragmentActivity {
 				startActivity(intent);
 			}
 		});
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			startActivity(new Intent(this, MainActivity.class));
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

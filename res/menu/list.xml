@@ -4,11 +4,14 @@
     <!-- アイコンを設定せずにテキストを指定する場合、すべて大文字で表示される！ -->
     <item
         android:id="@+id/item1"
-        android:showAsAction="ifRoom"
-        android:title="Log in"/>
+        android:showAsAction="always"
+        android:title="ツイート"/>
     <item
         android:id="@+id/item2"
-        android:showAsAction="always"
-        android:title="Exit"/>
-
+        android:showAsAction="ifRoom"
+        android:title="認証"/>
+    <item
+        android:id="@+id/item3"
+        android:showAsAction="ifRoom"
+        android:title="とじる"/>
 </menu>

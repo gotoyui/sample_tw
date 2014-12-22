@@ -26,10 +26,13 @@
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/tweet_before"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@+string/tw_button_before" />
+    <!-- <Button -->
+    <!-- android:id="@+id/tweet_before" -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_gravity="right" -->
+    <!-- android:background="@drawable/button_customize" -->
+    <!-- android:text="@+string/tw_button_before" /> -->
+
 
 </LinearLayout>

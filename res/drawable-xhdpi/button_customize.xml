@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- ボタンを単色で指定する -->
+    <solid android:color="#FFB6C1" />
+
+    <!-- ボタンの枠線の太さ、色を指定する -->
+    <stroke
+        android:width="3dp"
+        android:color="#ffffffff" />
+
+    <!-- ボタン内の余白を指定する -->
+    <padding
+        android:bottom="7dp"
+        android:left="7dp"
+        android:right="7dp"
+        android:top="7dp" />
+
+    <!-- ボタンの角の半径を指定する -->
+    <corners android:radius="48dp" />
+
+</shape>

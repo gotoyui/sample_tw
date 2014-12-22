@@ -35,7 +35,7 @@ public class TwitterAdapter extends ArrayAdapter {
 			// 受け取ったビューがnullなら新しくビューを生成
 			view = inflater.inflate(R.layout.twitter_row, null);
 			// 背景画像をセットする
-			view.setBackgroundResource(R.drawable.back2);
+			view.setBackgroundResource(R.drawable.back3);
 		}
 		// 表示すべきデータの取得
 		TwitterStatus item = (TwitterStatus) items.get(position);

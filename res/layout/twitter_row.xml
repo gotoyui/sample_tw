@@ -21,7 +21,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="test"
-            android:textColor="#c0c0c0" />
+            android:textColor="#FFB6C1" />
 
         <TextView
             android:id="@+id/tweet"

@@ -3,9 +3,11 @@
 
     <string name="app_name">ツイッターするアプリ</string>
     <!-- <string name="action_settings">Settings</string> -->
-    <string name="item1">アカウントを認証します</string>
-    <string name="item2">アプリを終了します</string>
-    <string name="tw_button_before">新しいツイート書きます</string>
-    <string name="tw_button_after">ツイートを投稿します</string>
+    <!-- <string name="item1">ツイートを書きます</string> -->
+    <!-- <string name="item2">アカウントを認証します</string> -->
+    <!-- <string name="item3">アプリを終了します</string> -->
+
+    <string name="tw_button_before">ツイート書きます</string>
+    <string name="tw_button_after">投稿します</string>
 
 </resources>

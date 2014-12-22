@@ -81,15 +81,15 @@ public class MainActivity extends Activity {
 		// MainActivityをactivityという名前のメンバ変数にしました
 		activity = this;
 
-		// fragment_mainのbuttonの遷移先を指定！！
-		Button btnMove = (Button) findViewById(R.id.tweet_before);
-		btnMove.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, NewTweet.class);
-				startActivity(intent);
-			}
-		});
+		// // fragment_mainのbuttonの遷移先を指定！！
+		// Button btnMove = (Button) findViewById(R.id.tweet_before);
+		// btnMove.setOnClickListener(new OnClickListener() {
+		// @Override
+		// public void onClick(View v) {
+		// Intent intent = new Intent(MainActivity.this, NewTweet.class);
+		// startActivity(intent);
+		// }
+		// });
 	}
 
 	// みんなが使いたいからonCreateの外に書いたやつ
@@ -184,10 +184,16 @@ public class MainActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.item1:
 			Log.d("", "menu1 tap.");
-			// ここにコールバック処理などをかく！
+			// NweTweetに遷移
+			Intent intent = new Intent(MainActivity.this, NewTweet.class);
+			startActivity(intent);
 
 		case R.id.item2:
 			Log.d("", "menu2 tap");
+			// ここにコールバック処理などをかく！
+
+		case R.id.item3:
+			Log.d("", "menu3 tap");
 			finish();
 		default:
 			return super.onOptionsItemSelected(item);

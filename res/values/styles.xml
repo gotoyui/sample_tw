@@ -21,7 +21,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="android:actionBarStyle">@style/CustomActionBarTheme</item>
     </style>
-    <!-- 背景を濃い灰色にする -->
+    <!-- 背景を濃い緑色にする -->
     <style name="CustomActionBarTheme" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
         <item name="android:background">@color/theme_color_1</item>
     </style>
