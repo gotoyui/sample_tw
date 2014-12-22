@@ -49,11 +49,17 @@ public class TwitterAdapter extends ArrayAdapter {
 				screenName.setText(item.getScreenName());
 			}
 
+			// 名前をビューにセット
+			TextView jp_name = (TextView) view.findViewById(R.id.jp_name);
+			if (jp_name != null) {
+				jp_name.setText(item.getName());
+			}
+
 			// テキストをビューにセット
 			if (text != null) {
 				text.setText(item.getText());
 			}
-			
+
 			// URLを画像にセット
 			URLImageView icon = (URLImageView) view.findViewById(R.id.icon);
 			if (icon != null) {

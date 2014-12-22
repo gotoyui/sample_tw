@@ -6,7 +6,9 @@ public class TwitterStatus {
 	private String text;
 	private long id;
 	private String url;
+	private String Name;
 
+	// idをgetしてsetする
 	public long getId() {
 		return id;
 	}
@@ -22,6 +24,15 @@ public class TwitterStatus {
 
 	public void setScreenName(String screenName) {
 		this.screenName = screenName;
+	}
+
+	// jp_Nameをgetしてsetする
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String Name) {
+		this.Name = Name;
 	}
 
 	// textをgetしてsetする
@@ -41,4 +52,5 @@ public class TwitterStatus {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 }

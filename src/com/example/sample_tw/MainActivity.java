@@ -139,6 +139,7 @@ public class MainActivity extends Activity {
 			Status status = statuses.get(l);
 			tweet.setScreenName(status.getUser().getScreenName());
 			tweet.setText(status.getText());
+			tweet.setName(status.getUser().getName());
 			tweet.setUrl(status.getUser().getProfileImageURL());
 			items.add(0, tweet); // itemsに追加する。0は一番新しいところ
 			tweet.setId(status.getId()); // ツイートのID
@@ -190,7 +191,8 @@ public class MainActivity extends Activity {
 
 		case R.id.item2:
 			Log.d("", "menu2 tap");
-			// ここにコールバック処理などをかく！
+			// OAuth認証のあとコールバック（あとでなおす）
+			TwitterLoginOAuth.main(null);
 
 		case R.id.item3:
 			Log.d("", "menu3 tap");
