@@ -1,7 +1,3 @@
-// 12/22 まったくできていないのでここをやる！
-
-
-
 package com.example.sample_tw;
 
 import android.app.Activity;
