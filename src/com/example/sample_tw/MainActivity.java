@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("", "ツイッターはじめるよ〜〜！");
 
 		// ActionBarにmenuを表示するときに忘れずつける！
 		setHasOptionsMenu(true);
@@ -176,18 +177,18 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.item1:
-			Log.d("", "ツイートが押されました");
+			Log.d("", "ツイートが押されたよ〜");
 			// NweTweetに遷移
 			Intent intent = new Intent(MainActivity.this, NewTweet.class);
 			startActivity(intent);
 
 		case R.id.item2:
-			Log.d("", "認証が押されました");
+			Log.d("", "認証が押されたよ〜");
 			// OAuth認証のあとコールバック
 			TwitterLoginOAuth.main(null);
 
 		case R.id.item3:
-			Log.d("", "とじるが押されました");
+			Log.d("", "とじるが押されたよ〜");
 			finish();
 		default:
 			return super.onOptionsItemSelected(item);

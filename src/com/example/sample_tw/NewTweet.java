@@ -69,6 +69,7 @@ public class NewTweet extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
+			Log.d("", "タイムラインに戻るよ〜");
 			startActivity(new Intent(this, MainActivity.class));
 			finish();
 			return true;
