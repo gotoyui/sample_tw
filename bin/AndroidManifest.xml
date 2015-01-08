@@ -5,6 +5,7 @@
     android:versionName="1.0" >
 
     <!-- 最小ターゲットバージョンは17！　標準ターゲットバージョンは19！ 4.4.2（Compile with と一致！） -->
+
     <uses-sdk
         android:minSdkVersion="17"
         android:targetSdkVersion="19" />
@@ -36,9 +37,8 @@
             -->
         </activity>
         <activity
-            android:name="CallBackActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleInstance" >
+            android:name="com.example.sample_tw.CallBackActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

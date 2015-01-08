@@ -52,8 +52,8 @@ public class NewTweet extends FragmentActivity {
 						NewTweetEdit.getText().toString(); // String型にする
 						String latestStatus = NewTweetEdit.getText().toString();
 						status = twitter.updateStatus(latestStatus); // statusに代入
-						System.out.println("ツイート「" + status.getText()
-								+ "」を投稿しました");
+						System.out.println("「" + status.getText()
+								+ "」ってツイートしたよ〜");
 						return status;
 					}
 				});
