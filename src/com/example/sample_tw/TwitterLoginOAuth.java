@@ -13,6 +13,7 @@ import twitter4j.Status;
 public class TwitterLoginOAuth {
 
 	// コンシューマ・キーとコンシューマ・シークレット
+	private static final String CALLBACK = "www.surugadai.ac.jp"; // コールバック先のURL（PINを指定する場合はいらない）
 	private static final String m_ConsumerKey = "SjaTsufLGmFsVyFCwfA28eekb";
 	private static final String m_ConsumerSecret = "5fF7B1eQSBxnfw7gVbLM33swhaJ6AXkDrs8pUYE4qboDK3K4i1";
 
@@ -20,7 +21,7 @@ public class TwitterLoginOAuth {
 
 		Twitter twitter;
 
-		// アクセストークンの読み込み
+		// アクセストークンの読み込み、別ブラウザでの認証
 		AccessToken accessToken = loadAccessToken();
 
 		// アクセストークンが既に保存されていれば，それを利用して
