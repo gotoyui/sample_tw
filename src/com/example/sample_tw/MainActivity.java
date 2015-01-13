@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("", "ツイッターはじめるよ〜〜！");
 
 		// ActionBarにmenuを表示するときに忘れずつける！
 		setHasOptionsMenu(true);
@@ -81,15 +82,6 @@ public class MainActivity extends Activity {
 		// MainActivityをactivityという名前のメンバ変数にしました
 		activity = this;
 
-		// // fragment_mainのbuttonの遷移先を指定！！
-		// Button btnMove = (Button) findViewById(R.id.tweet_before);
-		// btnMove.setOnClickListener(new OnClickListener() {
-		// @Override
-		// public void onClick(View v) {
-		// Intent intent = new Intent(MainActivity.this, NewTweet.class);
-		// startActivity(intent);
-		// }
-		// });
 	}
 
 	// みんなが使いたいからonCreateの外に書いたやつ
@@ -121,7 +113,7 @@ public class MainActivity extends Activity {
 								// 例外処理
 							} catch (TwitterException te) {
 								te.printStackTrace();
-								System.out.println("読み込みに失敗しました〜！"
+								System.out.println("読み込みに失敗しました〜！無念無念！理由は"
 										+ te.getMessage());
 								System.exit(-1);
 							}
@@ -154,6 +146,7 @@ public class MainActivity extends Activity {
 		public void onRefresh() {
 			// ツイートを新しく取得。さっき上で使ったローカル変数を宣言！！
 			getHomeTimeline();
+			Log.d("", "くるくる更新ちゅう〜");
 
 			// 更新処理を実装
 			new Handler().postDelayed(new Runnable() {
@@ -184,18 +177,18 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.item1:
-			Log.d("", "menu1 tap.");
+			Log.d("", "ツイートが押されたよ〜");
 			// NweTweetに遷移
 			Intent intent = new Intent(MainActivity.this, NewTweet.class);
 			startActivity(intent);
 
 		case R.id.item2:
-			Log.d("", "menu2 tap");
-			// OAuth認証のあとコールバック（あとでなおす）
+			Log.d("", "認証が押されたよ〜");
+			// OAuth認証のあとコールバック
 			TwitterLoginOAuth.main(null);
 
 		case R.id.item3:
-			Log.d("", "menu3 tap");
+			Log.d("", "とじるが押されたよ〜");
 			finish();
 		default:
 			return super.onOptionsItemSelected(item);
