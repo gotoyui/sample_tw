@@ -8,7 +8,7 @@
         android:id="@+id/button_start_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="認証します！" />
+        android:text="認証する画面にいきます" />
 
     <EditText
         android:id="@+id/edit_pin_code"

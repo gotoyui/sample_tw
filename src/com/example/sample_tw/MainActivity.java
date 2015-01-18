@@ -184,8 +184,12 @@ public class MainActivity extends Activity {
 
 		case R.id.item2:
 			Log.d("", "認証が押されたよ〜");
-			// OAuth認証のあとコールバック
-			TwitterLoginOAuth();
+			// PINコード認証のあとコールバック
+			
+			final int REQUEST_ACCESS_TOKEN = 0;
+			Intent intent2 = new Intent(MainActivity.this,
+					TwitterLoginOAuth.class);
+			startActivity(intent2);	
 
 		case R.id.item3:
 			Log.d("", "とじるが押されたよ〜");
