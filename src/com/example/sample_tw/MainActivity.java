@@ -185,7 +185,7 @@ public class MainActivity extends Activity {
 		case R.id.item2:
 			Log.d("", "認証が押されたよ〜");
 			// OAuth認証のあとコールバック
-			TwitterLoginOAuth.main(null);
+			TwitterLoginOAuth();
 
 		case R.id.item3:
 			Log.d("", "とじるが押されたよ〜");
