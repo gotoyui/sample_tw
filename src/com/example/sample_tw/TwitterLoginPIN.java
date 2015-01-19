@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
-public class TwitterLoginOAuth extends Activity implements OnClickListener {
+public class TwitterLoginPIN extends Activity implements OnClickListener {
 	public final static String EXTRA_CONSUMER_KEY = "SjaTsufLGmFsVyFCwfA28eekb";
 	public final static String EXTRA_CONSUMER_SECRET = "5fF7B1eQSBxnfw7gVbLM33swhaJ6AXkDrs8pUYE4qboDK3K4i1";
 	public final static String EXTRA_ACCESS_TOKEN = "601867423-g9Xh2jV8ipU0MLBrm8H0UurpTewLJnDMOWbPs34t";

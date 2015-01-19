@@ -187,7 +187,7 @@ public class MainActivity extends Activity {
 			// PINコード認証のあとコールバック まだ未設定　むずかしい・・・！
 			final int REQUEST_ACCESS_TOKEN = 0;
 			Intent intent2 = new Intent(MainActivity.this,
-					TwitterLoginOAuth.class);
+					TwitterLoginPIN.class);
 			startActivity(intent2);
 
 		case R.id.item3:
