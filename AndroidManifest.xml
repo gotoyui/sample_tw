@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <!-- 最小ターゲットバージョンは17！　標準ターゲットバージョンは19！ 4.4.2（Compile with と一致！） -->
+    <!-- 最小ターゲットバージョンは17！　標準ターゲットバージョンは19！ 4.4.2（Compile with と一致！） 5.0.2でも正常に動作 ->
 
     <uses-sdk
         android:minSdkVersion="17"
