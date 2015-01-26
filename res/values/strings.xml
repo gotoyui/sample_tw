@@ -14,5 +14,7 @@
     <string name="label_input_pin_code">label_input_pin_code</string>
     <string name="et_hint_input_pin">et_hint_input_pin</string>
     <string name="btn_auth">btn_auth</string>
+    <string name="err_invalid_pin">err_invalid_pin</string>
+    <string name="err_failed_auth">err_failed_auth</string>
 
 </resources>

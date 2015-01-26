@@ -21,6 +21,8 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -28,12 +30,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class TwitterLoginPIN extends FragmentActivity {
+public class TwitterLoginPIN extends FragmentActivity implements
+		OnClickListener {
 	public final static String EXTRA_CONSUMER_KEY = "SjaTsufLGmFsVyFCwfA28eekb";
 	public final static String EXTRA_CONSUMER_SECRET = "5fF7B1eQSBxnfw7gVbLM33swhaJ6AXkDrs8pUYE4qboDK3K4i1";
 	private OAuthAuthorization sOauth;
 	private RequestToken sRequestToken;
+	private AccessToken sAccessToken;
 
 	// public final static String EXTRA_ACCESS_TOKEN =
 	// "601867423-g9Xh2jV8ipU0MLBrm8H0UurpTewLJnDMOWbPs34t";
@@ -91,6 +96,41 @@ public class TwitterLoginPIN extends FragmentActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		if (sRequestToken != null) {
+			// 認証処理に入っている場合はレイアウトを変更
+			setContentView(R.layout.activity_oauth_type);
+			Button authBtn = (Button) findViewById(R.id.btn_auth_pin);
+			authBtn.setOnClickListener(this);
+		}
+	}
+
+	private void authPIN() {
+		EditText et = (EditText) findViewById(R.id.et_input_pin);
+		if (et.getText().toString().equals("")) {
+			Toast.makeText(this, R.string.err_invalid_pin, Toast.LENGTH_LONG);
+			return;
+		}
+		try {
+			sAccessToken = sOauth.getOAuthAccessToken(et.getText().toString());
+
+			SharedPreferences sp = getSharedPreferences("twitter_access",
+					MODE_PRIVATE);
+			Editor edit = sp.edit();
+			edit.putString("access_token", sAccessToken.getToken());
+			edit.putString("access_token_secret", sAccessToken.getTokenSecret());
+			edit.commit();
+			finish();
+		} catch (TwitterException e) {
+			String mTag = null;
+			Log.e(mTag, e.toString());
+			Toast.makeText(this, R.string.err_failed_auth, Toast.LENGTH_LONG);
+			return;
+		}
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
@@ -100,5 +140,9 @@ public class TwitterLoginPIN extends FragmentActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onClick(View v) {
 	}
 }
