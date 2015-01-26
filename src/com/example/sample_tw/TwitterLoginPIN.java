@@ -1,7 +1,12 @@
 package com.example.sample_tw;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import twitter4j.AsyncTwitter;
 import twitter4j.AsyncTwitterFactory;
+import twitter4j.Status;
 import twitter4j.TwitterAdapter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterListener;
@@ -49,32 +54,40 @@ public class TwitterLoginPIN extends FragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				/**
-				 * PINコード取得ボタンをおしたあと、Twitterへ接続する！
-				 */
-				// Twitetr4jの設定を読み込む
-				Configuration conf = ConfigurationContext.getInstance();
-				// Oauth認証オブジェクト作成
-				sOauth = new OAuthAuthorization(conf);
-				// Oauth認証オブジェクトにconsumerKeyとconsumerSecretを設定
-				sOauth.setOAuthConsumer("consumerKey", "consumerSecret");
-
-				// リクエストトークンの作成
-				try {
-					sRequestToken = sOauth.getOAuthRequestToken();
-				} catch (TwitterException e) {
-					String mTag = null;
-					Log.e(mTag, e.toString());
-					return;
-				}
-				String url = sRequestToken.getAuthorizationURL();
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-
-			}
+				// future task を利用してスレッドをつくる。ブラウザを呼び出す
+				ExecutorService exec = Executors.newSingleThreadExecutor();
+				exec.submit(new Callable<Status>() {
+					@Override
+					public Status call() throws Exception {
+						/**
+						 * PINコード取得ボタンをおしたあと、Twitterへ接続する！
+						 */
+						// Twitetr4jの設定を読み込む
+						Configuration conf = ConfigurationContext.getInstance();
+						// Oauth認証オブジェクト作成
+						sOauth = new OAuthAuthorization(conf);
+						// Oauth認証オブジェクトにconsumerKeyとconsumerSecretを設定
+						sOauth.setOAuthConsumer("consumerKey", "consumerSecret");
+						// リクエストトークンの作成
+						try {
+							sRequestToken = sOauth.getOAuthRequestToken();
+						} catch (TwitterException e) {
+							String mTag = null;
+							Log.e(mTag, e.toString());
+							return null;
+						}
+						String url = sRequestToken.getAuthorizationURL();
+						startActivity(new Intent(Intent.ACTION_VIEW, Uri
+								.parse(url)));
+						return null;
+					}
+				});
+				// もとのfragment_mainにもどる
+				// Intent intent = new Intent(TwitterLoginPIN.this,
+				// MainActivity.class);
+				// startActivity(intent);
+			};
 		});
-		// もとのfragment_mainにもどる
-		Intent intent = new Intent(TwitterLoginPIN.this, MainActivity.class);
-		startActivity(intent);
 	}
 
 	@Override
@@ -88,4 +101,4 @@ public class TwitterLoginPIN extends FragmentActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-};
+}
