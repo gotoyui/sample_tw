@@ -9,5 +9,10 @@
 
     <string name="tw_button_before">ツイート書きます</string>
     <string name="tw_button_after">投稿します</string>
+    <string name="login">login</string>
+    <string name="OK">OK</string>
+    <string name="label_input_pin_code">label_input_pin_code</string>
+    <string name="et_hint_input_pin">et_hint_input_pin</string>
+    <string name="btn_auth">btn_auth</string>
 
 </resources>

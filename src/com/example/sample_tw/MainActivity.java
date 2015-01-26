@@ -181,6 +181,7 @@ public class MainActivity extends Activity {
 			// NweTweetに遷移
 			Intent intent = new Intent(MainActivity.this, NewTweet.class);
 			startActivity(intent);
+			break;
 
 		case R.id.item2:
 			Log.d("", "認証が押されたよ〜");
@@ -188,6 +189,7 @@ public class MainActivity extends Activity {
 			Intent intent2 = new Intent(MainActivity.this,
 					TwitterLoginPIN.class);
 			startActivity(intent2);
+			break;
 
 		case R.id.item3:
 			Log.d("", "とじるが押されたよ〜");
@@ -195,5 +197,6 @@ public class MainActivity extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+		return false;
 	}
 }

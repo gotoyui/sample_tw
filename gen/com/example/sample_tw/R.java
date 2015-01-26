@@ -46,10 +46,10 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f090004;
-        public static final int button_login=0x7f090003;
-        public static final int button_start_login=0x7f090001;
+        public static final int btn_auth_pin=0x7f090003;
+        public static final int button_login=0x7f090001;
         public static final int container=0x7f090000;
-        public static final int edit_pin_code=0x7f090002;
+        public static final int et_input_pin=0x7f090002;
         public static final int icon=0x7f090009;
         public static final int item1=0x7f09000e;
         public static final int item2=0x7f09000f;
@@ -66,16 +66,22 @@ public final class R {
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_oauth=0x7f030001;
-        public static final int fragment_main=0x7f030002;
-        public static final int newtweet=0x7f030003;
-        public static final int twitter_row=0x7f030004;
+        public static final int activity_oauth_type=0x7f030002;
+        public static final int fragment_main=0x7f030003;
+        public static final int newtweet=0x7f030004;
+        public static final int twitter_row=0x7f030005;
     }
     public static final class menu {
         public static final int list=0x7f080000;
         public static final int main=0x7f080001;
     }
     public static final class string {
+        public static final int OK=0x7f060004;
         public static final int app_name=0x7f060000;
+        public static final int btn_auth=0x7f060007;
+        public static final int et_hint_input_pin=0x7f060006;
+        public static final int label_input_pin_code=0x7f060005;
+        public static final int login=0x7f060003;
         public static final int tw_button_after=0x7f060002;
         /**  <string name="action_settings">Settings</string> 
  <string name="item1">ツイートを書きます</string> 
